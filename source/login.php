@@ -1,12 +1,9 @@
 <?PHP
 require_once("./include/membersite_config.php");
 
-if(isset($_POST['submitted']))
+if(isset($_POST['submitted']) && $fgmembersite->Login())
 {
-   if($fgmembersite->Login())
-   {
-        $fgmembersite->RedirectToURL("login-home.php");
-   }
+   $fgmembersite->RedirectToURL("login-home.php");
 }
 
 ?>
@@ -22,7 +19,7 @@ if(isset($_POST['submitted']))
 
 <!-- Form Code Start -->
 <div id='fg_membersite'>
-<form id='login' action='<?php echo $fgmembersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
+<form id='login' action='<?= $fgmembersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
 <fieldset >
 <legend>Login</legend>
 
@@ -30,10 +27,10 @@ if(isset($_POST['submitted']))
 
 <div class='short_explanation'>* required fields</div>
 
-<div><span class='error'><?php echo $fgmembersite->GetErrorMessage(); ?></span></div>
+<div><span class='error'><?= $fgmembersite->GetErrorMessage(); ?></span></div>
 <div class='container'>
     <label for='username' >UserName*:</label><br/>
-    <input type='text' name='username' id='username' value='<?php echo $fgmembersite->SafeDisplay('username') ?>' maxlength="50" /><br/>
+    <input type='text' name='username' id='username' value='<?= $fgmembersite->SafeDisplay('username'); ?>' maxlength="50" /><br/>
     <span id='login_username_errorloc' class='error'></span>
 </div>
 <div class='container'>
@@ -54,7 +51,7 @@ Uses the excellent form validation script from JavaScript-coder.com-->
 <script type='text/javascript'>
 // <![CDATA[
 
-    var frmvalidator  = new Validator("login");
+    let frmvalidator  = new Validator("login");
     frmvalidator.EnableOnPageErrorDisplay();
     frmvalidator.EnableMsgsTogether();
 
